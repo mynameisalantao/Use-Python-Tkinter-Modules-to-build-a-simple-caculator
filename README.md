@@ -13,7 +13,7 @@
 <pre><code>window=tk.Tk()
 window.title("Welcome to Alan's calculator")
 window.geometry('500x500')</pre></code>
-字串變數物件var作為儲存label輸入的文字<br />
+字串變數物件var作為儲存label輸入的文字
 <pre><code>var = tk.StringVar()</pre></code>
 陣列numlist作為儲存當前輸入的所有計算(包括數字與符號)
 <pre><code>numlist=[]</pre></code>
@@ -39,3 +39,96 @@ scream.place(x=65, y=10, width=380, height=60)</pre></code>
         res = oldnum + num  
         var.set(res)
 </pre></code>        
+如果鍵入新數字前已經按過"符號鍵"或"清除鍵"<br />
+則要把label上顯示的數值清空，故使用var.set('0')<br />
+同時使用剛鍵入的數字num指定給res，成為label顯示的數值<br />
+如果剛才沒有按"符號鍵"或"清除鍵"，才先將var.get()儲存的數值傳給oldnum<br />
+並且將oldnum與剛才鍵入的數值字串物件將加，並指定給res後重新var.set(res)<br />
+處理符號鍵的函數部分如下:
+<pre><code>def presign(sign):
+    global hit_plus
+    oldnum = var.get()
+    numlist.append(oldnum)
+    numlist.append(sign)    
+    print(numlist)   
+    hit_plus=True</pre></code>
+同樣先將var.get()入前所儲存的數值傳給oldnum<br />
+並且將此oldnum附加到numlist陣列的最後面<br />
+最後再附加剛剛鍵入的符號<br />
+最後print(numlist)只是方便我監看陣列內容是否正確而已<br />
+並將hit_plus旗標設為True<br />
+處理解答(按下等號)的函數部分如下:
+<pre><code>def presseq(signeq):
+    oldnum = var.get()
+    numlist.append(oldnum)
+    print(numlist)
+    result = ''.join(numlist)
+    var.set(eval(result))
+    print(numlist)</pre></code>
+同樣是將目前var.get()值放入陣列numlist最後面<br />
+然後將字串轉換為可以計算的形式<br />
+這部分的語法我目前還沒學到，有參考網路上撰寫<br />
+然後print(numlist)也是方便監看正確性而已<br />
+當按下clear鍵後的函數部分如下:
+<pre><code>def special():
+    global hit_clear
+    var.set('0')
+    numlist.clear()
+    hit_clear=True</pre></code>
+將陣列numlist給清空，方便下次再放入進數值<br />
+然後是製作按鍵button的程式部分:
+<pre><code>#按鍵0
+b0 = tk.Button(text='0', command=lambda:pressnum('0'))
+b0.place(x=10, y=400, width=260, height=80)
+#按鍵1
+b1 =tk.Button(text='1', command=lambda:pressnum('1'))
+b1.place(x=10, y=305, width=80, height=80)
+#按鍵2
+b2 =tk.Button(text='2', command=lambda: pressnum('2'))
+b2.place(x=100, y=305, width=80, height=80)
+#按鍵3
+b3 = tk.Button(text='3', command=lambda: pressnum('3'))
+b3.place(x=190, y=305, width=80, height=80)
+#按鍵4
+b4 = tk.Button(text='4', command=lambda: pressnum('4'))
+b4.place(x=10, y=210, width=80, height=80)
+#按鍵5
+b5 = tk.Button(text='5', command=lambda: pressnum('5'))
+b5.place(x=100, y=210, width=80, height=80)
+#按鍵6
+b6 = tk.Button(text='6', command=lambda: pressnum('6'))
+b6.place(x=190, y=210, width=80, height=80)
+#按鍵7
+b7 = tk.Button(text='7', command=lambda: pressnum('7'))
+b7.place(x=10, y=115, width=80, height=80)
+#按鍵8
+b8 = tk.Button(text='8', command=lambda: pressnum('8'))
+b8.place(x=100, y=115, width=80, height=80)
+#按鍵9
+b9 = tk.Button(text='9', command=lambda: pressnum('9'))
+b9.place(x=190, y=115, width=80, height=80)
+#按鍵+
+bplus = tk.Button(text='+', command=lambda: presign('+'))
+bplus.place(x=295, y=305, width=80, height=80)
+#按鍵-
+bminus = tk.Button(text='-', command=lambda: presign('-'))
+bminus.place(x=390, y=305, width=80, height=80)
+#按鍵*
+bmul = tk.Button(text='X', command=lambda: presign('*'))
+bmul.place(x=295, y=210, width=80, height=80)
+#按鍵/
+bdiv = tk.Button(text='÷', command=lambda: presign('/'))
+bdiv.place(x=390, y=210, width=80, height=80)
+#按鍵=
+bequal = tk.Button(text='=', command=lambda: presseq('='))
+bequal.place(x=295, y=400, width=175, height=80)
+#按鍵c
+bclear = tk.Button(text='Clear',command = lambda :special())
+bclear.place(x=390, y=115, width=80, height=80)</pre></code>
+最後是讓程式持續執行的寫法:
+<pre><code>window.mainloop()</pre></code>
+    
+
+
+
+
