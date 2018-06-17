@@ -1,12 +1,12 @@
 使用python內建模塊tkinter來自製簡易計算機
 ============================================================
-![Imgur](https://i.imgur.com/J3anoLX.png)
 自己最近才剛開始用線上課程學習python<br />
 雖然python的指令相較於c++簡單了許多<br />
 但對於沒接觸過的物件，仍不熟悉他所擁有的函數和使用方式<br />
 程式利用載入tkinter模塊來製作視窗和裡面的label、button等等<br />
 因為目前只會簡單的語法，製作出來的成品也相當簡陋<br />
 未來會繼續深入學習python語法，有機會的話再來修改這個成品<br />
+![Imgur](https://i.imgur.com/J3anoLX.png)
 
 首先是載入import模塊，並用tk取代，方便以後使用此類別<br />
 <pre><code>import tkinter as tk</pre></code>
